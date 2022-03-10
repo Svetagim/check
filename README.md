@@ -160,7 +160,7 @@ code here
 
 <br/>
 
-```
+``` javascript
 ...
 const retentionTypes = memphis.retentionTypes 
 //retentionTypes = {
