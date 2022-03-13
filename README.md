@@ -126,7 +126,7 @@ To connect to Memphis server use ```connect()``` function.
 const memphis = require('memphis');
 
 const connectionDetails = {
-    serverUrl: "your Memphis server"
+    serverUrl: "your Memphis server url"
 }
 
 memphis.connect(connectionDetails)
@@ -216,7 +216,7 @@ memphis.connect(connectionDetails)
 ```
 
 ### Edit factory
-
+Just edit in the factoryDetails object the keys you want to update by using the ```myFactory.edit(editDetails)``` method.
 <br/>
 
 ``` javascript
@@ -243,7 +243,7 @@ myFactory.remove()
 
 ## Functions
 ### Add function
-
+fancDetails - ... after we'll have the endpoints..
 <br/>
 
 ``` javascript
@@ -283,12 +283,13 @@ myFactory.removeFunction(5) //Function's location
 ```
 
 ## Produce
+To publish a message on Memphis factory first create a producer object using the method ```conn.producer(factory)```, then just publish a message with this producer using the method ```producerMemphis.publish("the message you want to publish")```
 <br/>
 
 ``` javascript
-const producerStrech = conn.producer("memphis") //Creates a producer object
+const producerMemphis = conn.producer("memphis") //Creates a producer object
 //Now this producer can publish to Memphis factory
-producerStrech.publish( "the message you want to publish" )
+producerMemphis.publish( "the message you want to publish" )
   .then(res => console.log(res))
   .catch(error => {
     console.error(error)
@@ -296,6 +297,10 @@ producerStrech.publish( "the message you want to publish" )
 ```
 
 ## Consume
+To consume messages from Memphis factory first create a consumer object using the method ```conn.consumer(factoryName, horizontalScalingGroup)```
+> horizontalScalingGroup used for connecting few subscribers to the same consumer, in other words - If you want to scale the consuming process and wish few consumers to split the consuming task, just give them the same horizontalScalingGroup name.
+<br/>
+Then just consume messages with this consumer using the method ```consumer1.on("message", function)...```
 <br/>
 
 ``` javascript
