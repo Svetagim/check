@@ -109,7 +109,9 @@ This section should list any major frameworks/libraries used to bootstrap your p
 
 
 ## Installation
-```sh
+<br/>
+
+  ```sh
   npm install memphis
   ```
 <p align="right">(<a href="#top">back to top</a>)</p>
@@ -122,7 +124,7 @@ This section should list any major frameworks/libraries used to bootstrap your p
 ## Connect to server
 To connect to Memphis server use ```connect()``` function.
 <br/>
-```
+``` javascript
 const memphis = require('memphis');
 
 const connectionDetails = {
@@ -186,8 +188,10 @@ memphis.connect(connectionDetails)
       maxThroughput: 7000
       }
 
+    // Created factory object
     const myFactory = conn.factory("factoryName", factoryDetails)
 
+    // Actualy adds the factory object to Memphis engine
     myFactory.add()
       .then(res => console.log(res))
       .catch(error => {
@@ -198,6 +202,107 @@ memphis.connect(connectionDetails)
   .catch(err => {
     console.log(`error connecting: ${err}`)
   })
+```
+
+### Edit factory
+
+<br/>
+
+``` javascript
+const editDetails = {} //Object contains one or more of the new factoryDetails
+myFactory.edit(editDetails)
+  .then(res => console.log(res))
+  .catch(error => {
+    console.error(error)
+  })
+```
+
+
+### Remove factory
+
+<br/>
+
+``` javascript
+myFactory.remove()
+  .then(res => console.log(res))
+  .catch(error => {
+    console.error(error)
+  })
+```
+
+## Functions
+### Add function
+
+<br/>
+
+``` javascript
+const fancDetails = {}
+myFactory.addFunction(fancDetails, 1) 
+//The second arg is the function's location, if not sent the new function will be edded at the end of the "pipeline"
+//For example, if we have a function already the method myFactory.addFunction(fancDetails) will add the new function after the first one.
+  .then(res => console.log(res))
+  .catch(error => {
+    console.error(error)
+  })
+```
+
+### Edit function
+
+<br/>
+
+``` javascript
+myFactory.editFunction(fancDetails, 1)
+//The second arg is the function's location
+  .then(res => console.log(res))
+  .catch(error => {
+    console.error(error)
+  })
+```
+
+### Remove function
+
+<br/>
+
+``` javascript
+myFactory.removeFunction(5) //Function's location
+  .then(res => console.log(res))
+  .catch(error => {
+    console.error(error)
+  })
+```
+
+## Produce
+<br/>
+
+``` javascript
+const producerStrech = conn.producer("memphis") //Creates a producer object
+//Now this producer can publish to Memphis factory
+producerStrech.publish( "the message you want to publish" )
+  .then(res => console.log(res))
+  .catch(error => {
+    console.error(error)
+  })
+```
+
+## Consume
+<br/>
+
+``` javascript
+// Notice that consumer1 will receive all the messages from the factory and consumer2 and consumer3 will split the messages.
+const consumer1 = conn.consumer("memphis", "consumer_1")
+consumer1.on("message", (msg) => {
+  console.log(`msg consumer1: ${msg}`)
+})
+
+const consumer2 = conn.consumer("memphis", "consumer_2")
+consumer2.on("message", (msg) => {
+  console.log(`msg consumer2: ${msg}`)
+})
+        
+const consumer3 = conn.consumer("memphis", "consumer_2")
+consumer3.on("message", (msg) => {
+  console.log(`msg consumer3: ${msg}`)
+})
 ```
 
 
