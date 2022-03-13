@@ -82,7 +82,7 @@
 
 <!-- [![Product Name Screen Shot][product-screenshot]](https://example.com) -->
 
-This is Memphis node.js SDK. It will allow you to connect to memphis server, create applications and facroties, publish and consume messages.
+This is Memphis node.js SDK. It will allow you to connect to memphis server, create applications and facroties, produce and consume messages.
 <br/>
 And it will be <b>EASY</b>. We promise.
 
@@ -109,9 +109,9 @@ This section should list any major frameworks/libraries used to bootstrap your p
 
 
 ## Installation
-  ```sh
+```sh
   npm install memphis
-  ```
+```
 <p align="right">(<a href="#top">back to top</a>)</p>
 
 
@@ -157,8 +157,21 @@ code here
 ```
 
 ### Add factory
+To add a new factory, you first have to create a factory object with options that include:
+* application - application name you want to associate your factory with (not mandatory).
+* retentionType - we support 3 retention policies: 
+  * time - messages inside factory will be deleted after a period of time set by the user.
+  * size - messages inside factory will be deleted after max factory size.
+  * consumed - message will be deleted once being consumed.
+* retentionValue - value of the chosen retentionType policy:
+  * time - millisecond. 
+  * size - bytes.
+* throughputType - maximum messages/ bytes per second.
+* maxThroughput - Integer value that expresses the throughputType (messages or bytes per second).
 
+To create this object use the method ```conn.factory("factoryName", factoryDetails)```.
 <br/>
+After object creation, using the method ```myFactory.add()``` will create a new factory.
 
 ``` javascript
 ...
