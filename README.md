@@ -169,7 +169,7 @@ To add a new factory, you first have to create a factory object with options tha
 * throughputType - maximum messages/ bytes per second.
 * maxThroughput - Integer value that expresses the throughputType (messages or bytes per second).
 
-To create this object use the method ```conn.factory("factoryName", factoryDetails)```.
+To create this object use the method ```conn.factory(factoryName, factoryDetails)```.
 <br/>
 After object creation, using the method ```myFactory.add()``` will create a new factory.
 
@@ -300,7 +300,7 @@ producerMemphis.publish( "the message you want to publish" )
 To consume messages from Memphis factory first create a consumer object using the method ```conn.consumer(factoryName, horizontalScalingGroup)```
 > horizontalScalingGroup used for connecting few subscribers to the same consumer, in other words - If you want to scale the consuming process and wish few consumers to split the consuming task, just give them the same horizontalScalingGroup name.
 <br/>
-Then just consume messages with this consumer using the method ```consumer1.on("message", function)...```
+Then just consume messages with this consumer using the method ```consumer1.on()```.
 <br/>
 
 ``` javascript
@@ -322,7 +322,7 @@ consumer3.on("message", (msg) => {
 ```
 
 
-_For more examples, please refer to the [Documentation](https://example.com)_
+_For more examples, please refer to the [Documentation](https://app.gitbook.com/o/-MSyW3CRw3knM-KGk6G6/s/LatZwPwDjCwbLnmGpBSe/)_
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
